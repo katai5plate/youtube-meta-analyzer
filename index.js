@@ -83,7 +83,7 @@ moment.locale('ja');
       channelTitle: author,
       publishedAt,
       categoryId,
-      tags,
+      tags = [],
       description
     } = resData;
     const hashtags =
