@@ -38,3 +38,5 @@ READY cqncAh_28Es
 DONE cqncAh_28Es
 FINISH
 ```
+
+- `npm run search -- -s <word>` で検索 TOP10 の動画 ID を取得できる
