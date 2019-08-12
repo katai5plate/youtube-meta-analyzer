@@ -66,7 +66,7 @@ moment.locale('ja');
       }
     }
     const resData = res.items[0].snippet;
-    console.log(resData);
+    // console.log(resData);
     const {
       title,
       channelTitle: author,
@@ -99,6 +99,10 @@ moment.locale('ja');
         tags,
         tagSize: tags.length,
         description: JSON.stringify(description),
+        description3: JSON.stringify(description)
+          .split('\n')
+          .slice(0, 2)
+          .join('\n'),
         hashtags,
         hashtagSize: hashtags.length,
         links,
