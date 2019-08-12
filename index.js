@@ -100,9 +100,9 @@ moment.locale('ja');
         tagSize: tags.length,
         description: JSON.stringify(description),
         description3: JSON.stringify(description)
-          .split('\n')
-          .slice(0, 2)
-          .join('\n'),
+          .split('\\n')
+          .slice(0, 3)
+          .join('\\n'),
         hashtags,
         hashtagSize: hashtags.length,
         links,
