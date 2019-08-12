@@ -105,8 +105,13 @@ moment.locale('ja');
         at: moment(publishedAt).format('YYYY/MM/DD HH:mm:ss'),
         atJP: moment(publishedAt).format('YYYY年MM月DD日(dd) HH時mm分ss秒'),
         categoryId,
-        categoryName: CATEGORIES.filter(({ id: cid }) => cid === categoryId)[0]
-          .snippet.title,
+        categoryName: (() => {
+          const x = CATEGORIES.filter(({ id: cid }) => cid === categoryId);
+          if (x.length > 0) {
+            return x[0].snippet.title;
+          }
+          return categoryId;
+        })(),
         tags,
         tagSize: tags.length,
         description: JSON.stringify(description),
