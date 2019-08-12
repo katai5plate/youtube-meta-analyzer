@@ -25,6 +25,7 @@
 5. 完了すれば、 `export/` に JSON が出力される。
 
 ```
+DONE FETCH CATEGORIES
 READY fLC5TE_KYcw
 DONE fLC5TE_KYcw
 READY 0V1vk83iV-o

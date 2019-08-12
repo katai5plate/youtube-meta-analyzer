@@ -1,5 +1,6 @@
 const INPUT = require('./input.json');
 const { key: KEY } = require('./config.json');
+
 const YouTube = require('youtube-node');
 const fs = require('fs-extra');
 const moment = require('moment');
@@ -12,6 +13,20 @@ moment.locale('ja');
   y.setKey(KEY);
 
   const sleep = ms => new Promise(f => setTimeout(f, ms));
+  const JSONtoCSV = (arr, columns, delimiter = ',') =>
+    [
+      columns.join(delimiter),
+      ...arr.map(obj =>
+        columns.reduce(
+          (acc, key) =>
+            `${acc}${!acc.length ? '' : delimiter}"${
+              !obj[key] ? '' : obj[key]
+            }"`,
+          ''
+        )
+      )
+    ].join('\n');
+
   const getCategories = () =>
     new Promise((ok, ng) =>
       req.get(
@@ -50,39 +65,62 @@ moment.locale('ja');
         console.log('TIMEOUT', id, e);
       }
     }
+    const resData = res.items[0].snippet;
+    console.log(resData);
     const {
       title,
       channelTitle: author,
       publishedAt,
       categoryId,
-      tags
-    } = res.items[0].snippet;
+      tags,
+      description
+    } = resData;
+    const hashtags =
+      description.match(
+        /[#＃][Ａ-Ｚａ-ｚA-Za-z一-鿆0-9０-９ぁ-ヶｦ-ﾟー._-]+/gm
+      ) || [];
+    const links =
+      description.match(
+        /(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/gm
+      ) || [];
     results = [
       ...results,
       {
         id,
         title,
+        title24: title.slice(0, 24),
+        title28: title.slice(0, 28),
         author,
-        at: moment(publishedAt).toISOString(),
+        at: moment(publishedAt).format('YYYY/MM/DD HH:mm:ss'),
         atJP: moment(publishedAt).format('YYYY年MM月DD日(dd) HH時mm分ss秒'),
         categoryId,
         categoryName: CATEGORIES.filter(({ id: cid }) => cid === categoryId)[0]
           .snippet.title,
-        tags: tags
+        tags,
+        tagSize: tags.length,
+        description: JSON.stringify(description),
+        hashtags,
+        hashtagSize: hashtags.length,
+        links,
+        linkSize: links.length
       }
     ];
   }
 
   try {
+    const name = `export/result_${new Date()
+      .toJSON()
+      .replace(/-|T|:|\.|Z/g, ',')
+      .split(',')
+      .slice(0, -1)
+      .join('-')}`;
+
+    await fs.outputFile(`${name}.json`, JSON.stringify(results, null, '  '));
     await fs.outputFile(
-      `export/result_${new Date()
-        .toJSON()
-        .replace(/-|T|:|\.|Z/g, ',')
-        .split(',')
-        .slice(0, -1)
-        .join('-')}.json`,
-      JSON.stringify(results, null, '  ')
+      `${name}.csv`,
+      JSONtoCSV(results, Object.keys(results[0]))
     );
+
     console.log('FINISH');
     return;
   } catch (error) {
