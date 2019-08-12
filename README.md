@@ -12,7 +12,7 @@
 }
 ```
 
-2. `input.json` に ID を書き込む
+2. `input.json` を作成し ID を書き込む
 
 ```json
 ["fLC5TE_KYcw", "0V1vk83iV-o", "TeKTVFgw1hM", "NasyGUeNMTs", "cqncAh_28Es"]
@@ -20,7 +20,7 @@
 
 3. `npm i` でインストール
 
-4. `node index` を実行
+4. `npm start -- -f input.json` を実行
 
 5. 完了すれば、 `export/` に JSON が出力される。
 

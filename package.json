@@ -4,6 +4,7 @@
   "description": "特定の動画のタグやら投稿時間やらを収集したい",
   "main": "index.js",
   "scripts": {
+    "start": "node index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,7 +21,9 @@
   "dependencies": {
     "csv": "^5.1.2",
     "fs-extra": "^8.1.0",
+    "minimist": "^1.2.0",
     "moment": "^2.24.0",
+    "path": "^0.12.7",
     "youtube-node": "^1.3.3"
   }
 }

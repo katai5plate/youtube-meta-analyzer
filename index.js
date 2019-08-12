@@ -1,14 +1,25 @@
-const INPUT = require('./input.json');
 const { key: KEY } = require('./config.json');
+const ARGS = require('minimist')(process.argv.slice(2));
 
 const YouTube = require('youtube-node');
 const fs = require('fs-extra');
+const path = require('path');
 const moment = require('moment');
 const req = require('request');
 
 moment.locale('ja');
 
 (async () => {
+  let INPUT, INPUT_FILENAME;
+  try {
+    INPUT = await fs.readJSON(ARGS.f);
+    INPUT_FILENAME = path.parse(ARGS.f).name;
+    console.log('INPUT FILE IS OK');
+  } catch (error) {
+    console.log('INPUT FILE ERROR', error);
+    return;
+  }
+
   const y = new YouTube();
   y.setKey(KEY);
 
@@ -112,7 +123,7 @@ moment.locale('ja');
   }
 
   try {
-    const name = `export/result_${new Date()
+    const name = `export/${INPUT_FILENAME}_${new Date()
       .toJSON()
       .replace(/-|T|:|\.|Z/g, ',')
       .split(',')
