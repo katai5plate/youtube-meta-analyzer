@@ -120,9 +120,21 @@ moment.locale('ja');
       .join('-')}`;
 
     await fs.outputFile(`${name}.json`, JSON.stringify(results, null, '  '));
+    const csvResults = results.map(
+      ({ id, title, author, at, categoryName, tags, hashtags, links }) => ({
+        id,
+        title,
+        author,
+        at,
+        categoryName,
+        tags: tags.join(', '),
+        hashtags: hashtags.join(' '),
+        links: links.join(' ')
+      })
+    );
     await fs.outputFile(
       `${name}.csv`,
-      JSONtoCSV(results, Object.keys(results[0]))
+      JSONtoCSV(csvResults, Object.keys(csvResults[0]))
     );
 
     console.log('FINISH');
