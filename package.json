@@ -1,0 +1,24 @@
+{
+  "name": "youtube-meta-analyzer",
+  "version": "1.0.0",
+  "description": "特定の動画のタグやら投稿時間やらを収集したい",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/katai5plate/youtube-meta-analyzer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/katai5plate/youtube-meta-analyzer/issues"
+  },
+  "homepage": "https://github.com/katai5plate/youtube-meta-analyzer#readme",
+  "dependencies": {
+    "fs-extra": "^8.1.0",
+    "youtube-node": "^1.3.3"
+  }
+}
