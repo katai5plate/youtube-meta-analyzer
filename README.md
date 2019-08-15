@@ -4,6 +4,10 @@
 
 ## Usage
 
+- Node.js
+- Git
+- YouTube API のキー
+
 1. `config.json` を作成
 
 ```json
