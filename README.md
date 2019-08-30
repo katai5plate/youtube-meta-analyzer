@@ -11,7 +11,7 @@
   - この手順でAPIキーを入手する: https://www.plusdesign.co.jp/blog/?p=7752
 - お好きなコーディングエディタ（ vscode, ATOM など ）
 
-### インストール
+### ダウンロードとインストール
 
 0. インストールしたいフォルダをコマンドプロンプト/ターミナルで開く
 1. `git clone https://github.com/katai5plate/youtube-meta-analyzer` を実行(要Git)
